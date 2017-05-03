@@ -121,6 +121,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuBarButton" destination="ygG-ky-oFJ" id="b8V-vd-iO2"/>
+                        <segue destination="2eE-dA-bzo" kind="show" identifier="CurrentDelivery" id="JKb-60-95S"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFN-Bb-ScE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -241,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ac2-Gg-2fL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-436" y="1922"/>
+            <point key="canvasLocation" x="-580" y="1900"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -1558,10 +1559,11 @@
         <image name="splash_screen" width="185" height="110"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="2GC-rH-Ar3"/>
+        <segue reference="3Rp-3h-DPL"/>
         <segue reference="USj-1h-8EN"/>
         <segue reference="qOG-Vp-xPf"/>
-        <segue reference="3Rp-3h-DPL"/>
-        <segue reference="2GC-rH-Ar3"/>
+        <segue reference="JKb-60-95S"/>
         <segue reference="bwC-5h-KCm"/>
     </inferredMetricsTieBreakers>
 </document>

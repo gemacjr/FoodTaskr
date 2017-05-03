@@ -232,6 +232,18 @@ class APIManager {
     }
     
     
+    // API - Picking up a ready order
+    func pickOrder(orderId: Int, completionHandler: @escaping (JSON) -> Void) {
+        
+        let path = "api/driver/order/pick/"
+        let params: [String: Any] = [
+            "order_id": "\(orderId)",
+            "access_token": self.accessToken
+        ]
+        
+        requestServer(.post, path, params, URLEncoding(), completionHandler)
+    }
+    
     
     
     
