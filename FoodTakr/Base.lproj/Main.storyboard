@@ -140,7 +140,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hS9-84-Yjq"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hS9-84-Yjq">
+                                <connections>
+                                    <outlet property="delegate" destination="2eE-dA-bzo" id="SDa-2p-XKJ"/>
+                                </connections>
+                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rms-09-wry">
                                 <color key="backgroundColor" red="0.92685526610000002" green="0.44100409750000003" blue="0.56261318920000003" alpha="0.78424657534246578" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -159,12 +163,12 @@
                                             <constraint firstAttribute="width" constant="50" id="Ym3-8U-QUZ"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yE3-eK-Nl3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yE3-eK-Nl3">
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" red="0.047058823529411764" green="0.6705882352941176" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhA-bW-1SG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhA-bW-1SG">
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -202,7 +206,13 @@
                         <barButtonItem key="leftBarButtonItem" image="icon_menu_24dp" id="a4I-5K-UnP"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="bComplete" destination="rms-09-wry" id="Xyn-gk-r5k"/>
+                        <outlet property="imgCustomerAvatar" destination="DTi-P2-QQO" id="3xi-EM-Xo0"/>
+                        <outlet property="lbCustomerAddress" destination="AhA-bW-1SG" id="9Wd-g7-am6"/>
+                        <outlet property="lbCustomerName" destination="yE3-eK-Nl3" id="wfD-x3-Rdb"/>
+                        <outlet property="map" destination="hS9-84-Yjq" id="8bb-wO-dxP"/>
                         <outlet property="menuBarButton" destination="a4I-5K-UnP" id="Q65-u5-p5v"/>
+                        <outlet property="viewInfo" destination="C8Y-n1-v4x" id="ybF-Y8-YKi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pGa-Ak-9sx" userLabel="First Responder" sceneMemberID="firstResponder"/>

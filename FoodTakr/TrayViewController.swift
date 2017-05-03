@@ -72,7 +72,8 @@ class TrayViewController: UIViewController {
             locationManager.startUpdatingLocation()
             
             self.map.showsUserLocation = true
-        }}
+        }
+    }
     
     func loadMeals() {
         
