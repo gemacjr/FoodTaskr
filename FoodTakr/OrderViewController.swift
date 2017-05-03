@@ -24,6 +24,9 @@ class OrderViewController: UIViewController {
     var destination: MKPlacemark?
     var source: MKPlacemark?
     
+    var driverPin: MKPointAnnotation!
+    var timer = Timer()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,23 +51,81 @@ class OrderViewController: UIViewController {
             
             let order = json["order"]
             
-            if let orderDetails = order["order_details"].array {
-                self.lbStatus.text = order["status"].string!.uppercased()
-                self.tray = orderDetails
-                self.tbvMeals.reloadData()
+            if order["status"] != nil {
+                
+                if let orderDetails = order["order_details"].array {
+                    self.lbStatus.text = order["status"].string!.uppercased()
+                    self.tray = orderDetails
+                    self.tbvMeals.reloadData()
+                }
+                
+                let from = order["restaurant"]["address"].string!
+                let to = order["address"].string!
+                
+                self.getLocation(from, "Restaurant", { (start) in
+                    self.source = start
+                    
+                    self.getLocation(to, "Customer", { (end) in
+                        self.destination = end
+                    })
+                })
+                
+                if order["status"] != "Delivered" {
+                    self.setTimer()
+                }
+
             }
             
-            let from = order["restaurant"]["address"].string!
-            let to = order["address"].string!
-            
-            self.getLocation(from, "Restaurant", { (start) in
-                self.source = start
-                
-                self.getLocation(to, "Customer", { (end) in
-                    self.destination = end
-                })
-            })
         }
+        
+    }
+    
+    func setTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(getDriverLocation(_:)), userInfo: nil, repeats: true)
+        
+    }
+    
+    func getDriverLocation(_ sender: AnyObject){
+        
+        APIManager.shared.getDriverLocation { (json) in
+            if let location = json["location"].string {
+                self.lbStatus.text = "ON THE WAY"
+                let split = location.components(separatedBy: ",")
+                let lat = split[0]
+                let lng = split[1]
+                
+                let coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(lat)!, longitude: CLLocationDegrees(lng)!)
+                
+                if self.driverPin != nil {
+                    self.driverPin.coordinate = coordinate
+                } else {
+                    self.driverPin = MKPointAnnotation()
+                    self.driverPin.coordinate = coordinate
+                    self.map.addAnnotation(self.driverPin)
+                }
+                
+                self.autozoom()
+            }
+        }
+        
+    }
+    
+    func autozoom(){
+        
+        // Reset zoom
+        var zoomRect = MKMapRectNull
+        for annotation in self.map.annotations {
+            
+            let annotationPoint = MKMapPointForCoordinate(annotation.coordinate)
+            let pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1)
+            zoomRect = MKMapRectUnion(zoomRect, pointRect)
+        }
+        
+        let insetWidth = -zoomRect.size.width * 0.2
+        let insetHeight = -zoomRect.size.height * 0.2
+        let insetRect = MKMapRectInset(zoomRect, insetWidth, insetHeight)
+        
+        self.map.setVisibleMapRect(insetRect, animated: true)
         
     }
     
