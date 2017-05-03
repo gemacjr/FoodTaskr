@@ -282,6 +282,21 @@ class APIManager {
     
     
     
+    // API - Complete the order
+    func completeOrder(orderId: Int, completionHandler: @escaping (JSON) -> Void) {
+        
+        
+        let path = "api/driver/order/complete/"
+        let params: [String: Any] = [
+            "order_id": "\(orderId)",
+            "access_token": self.accessToken
+        
+        ]
+        
+        requestServer(.post, path, params, URLEncoding(), completionHandler)
+    }
+    
+    // API -Getting Drivers revenue
     
     
     

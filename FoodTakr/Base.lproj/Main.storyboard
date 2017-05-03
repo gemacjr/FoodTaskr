@@ -39,7 +39,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DriverOrdersCell" id="zIt-Pw-6ht" customClass="DriverOrderCell" customModule="FoodTakr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="122"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="122"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zIt-Pw-6ht" id="jxa-nT-sap">
                                     <frame key="frameInset" width="375" height="122"/>
@@ -154,6 +154,9 @@
                                 <state key="normal" title="COMPLETE ORDER">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="completeOrder:" destination="2eE-dA-bzo" eventType="touchUpInside" id="3ke-J0-XvJ"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C8Y-n1-v4x">
                                 <subviews>
@@ -213,6 +216,7 @@
                         <outlet property="map" destination="hS9-84-Yjq" id="8bb-wO-dxP"/>
                         <outlet property="menuBarButton" destination="a4I-5K-UnP" id="Q65-u5-p5v"/>
                         <outlet property="viewInfo" destination="C8Y-n1-v4x" id="ybF-Y8-YKi"/>
+                        <segue destination="uzA-wy-i5w" kind="show" identifier="ViewOrders" id="jkM-dE-YA6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pGa-Ak-9sx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -376,10 +380,10 @@
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RestaurantCell" id="jtG-19-J0m" customClass="RestaurantViewCell" customModule="FoodTakr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="226"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="226"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jtG-19-J0m" id="llF-zW-Xw3">
-                                            <frame key="frameInset" width="1000" height="226"/>
+                                            <frame key="frameInset" width="375" height="226"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank_image" translatesAutoresizingMaskIntoConstraints="NO" id="WsD-es-PAY">
@@ -1569,11 +1573,12 @@
         <image name="splash_screen" width="185" height="110"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2GC-rH-Ar3"/>
+        <segue reference="JKb-60-95S"/>
+        <segue reference="jkM-dE-YA6"/>
         <segue reference="3Rp-3h-DPL"/>
         <segue reference="USj-1h-8EN"/>
         <segue reference="qOG-Vp-xPf"/>
-        <segue reference="JKb-60-95S"/>
+        <segue reference="2GC-rH-Ar3"/>
         <segue reference="bwC-5h-KCm"/>
     </inferredMetricsTieBreakers>
 </document>

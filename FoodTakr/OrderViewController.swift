@@ -62,10 +62,10 @@ class OrderViewController: UIViewController {
                 let from = order["restaurant"]["address"].string!
                 let to = order["address"].string!
                 
-                self.getLocation(from, "Restaurant", { (start) in
+                self.getLocation(from, "RES", { (start) in
                     self.source = start
                     
-                    self.getLocation(to, "Customer", { (end) in
+                    self.getLocation(to, "CUS", { (end) in
                         self.destination = end
                     })
                 })
@@ -101,10 +101,14 @@ class OrderViewController: UIViewController {
                 } else {
                     self.driverPin = MKPointAnnotation()
                     self.driverPin.coordinate = coordinate
+                    self.driverPin.title = "DRI"
                     self.map.addAnnotation(self.driverPin)
                 }
                 
                 self.autozoom()
+            } else {
+                
+                self.timer.invalidate()
             }
         }
         
@@ -197,22 +201,44 @@ extension OrderViewController: MKMapViewDelegate {
             self.map.add(route.polyline, level: MKOverlayLevel.aboveRoads)
         }
         
-        var zoomRect = MKMapRectNull
-        for annotation in self.map.annotations {
-            
-            let annotationPoint = MKMapPointForCoordinate(annotation.coordinate)
-            let pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1)
-            zoomRect = MKMapRectUnion(zoomRect, pointRect)
-        }
-        
-        let insetWidth = -zoomRect.size.width * 0.2
-        let insetHeight = -zoomRect.size.height * 0.2
-        let insetRect = MKMapRectInset(zoomRect, insetWidth, insetHeight)
-        
-        self.map.setVisibleMapRect(insetRect, animated: true)
     }
     
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let annotationIdentifier = "MyPin"
+        
+        var annotationView: MKAnnotationView?
+        if let dequeueAnnotationView: MKAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier){
+            annotationView = dequeueAnnotationView
+            annotationView?.annotation = annotation
+        } else {
+            
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+        }
+        
+        if let annotationView = annotationView, let name = annotation.title! {
+            
+            switch name {
+                case "DRI":
+                    annotationView.canShowCallout = true
+                    annotationView.image = UIImage(named: "pin_car")
+                
+                case "RES":
+                    annotationView.canShowCallout = true
+                    annotationView.image = UIImage(named: "pin_restaurant")
+                
+                case "CUS":
+                    annotationView.canShowCallout = true
+                    annotationView.image = UIImage(named: "pin_customer")
+                default:
+                    annotationView.canShowCallout = true
+                    annotationView.image = UIImage(named: "pin_car")
+            
+            }
+        }
+        
+        return annotationView
+    }
     
     
     

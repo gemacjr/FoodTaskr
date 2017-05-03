@@ -60,6 +60,9 @@ class DeliveryViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateLocation(_:)), userInfo: nil, repeats: true)
     }
     
+    
+    
+    
     func updateLocation(_ sender: AnyObject) {
         
         APIManager.shared.updateLocation(location: self.lastLocation) { (json) in
@@ -117,6 +120,33 @@ class DeliveryViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func completeOrder(_ sender: AnyObject) {
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            
+            APIManager.shared.completeOrder(orderId: self.orderId!, completionHandler: { (json) in
+                
+                if json != nil {
+                    
+                    self.timer.invalidate()
+                    self.locationManager.stopUpdatingLocation()
+                    
+                    self.performSegue(withIdentifier: "ViewOrders", sender: self)
+                    
+                }
+            })
+        }
+        
+        let alertView = UIAlertController(title: "Complete Order", message: "Are you sure?", preferredStyle: .alert)
+        alertView.addAction(cancelAction)
+        alertView.addAction(okAction)
+        
+        self.present(alertView, animated: true, completion: nil)
+        
+    }
+    
 
 }
 

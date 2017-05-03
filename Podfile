@@ -12,5 +12,6 @@ target 'FoodTakr' do
   pod 'FBSDKShareKit'
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
   pod 'SwiftyJSON', :git => 'https://github.com/BaiduHiDeviOS/SwiftyJSON', :branch => 'swift3'
+  pod 'Charts', :git => 'https://github.com/danielgindi/Charts', :branch => 'pr/2378'
 
 end
